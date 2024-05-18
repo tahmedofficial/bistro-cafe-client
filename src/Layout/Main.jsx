@@ -1,15 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../Pages/Shared/Footer/Footer";
 import Navbar from "../Pages/Shared/Navbar/Navbar";
 import { HelmetProvider } from "react-helmet-async";
 
 const Main = () => {
+
+    const location = useLocation();
+    const isLogin = location.pathname.includes("/login");
+
     return (
         <div className="max-w-screen-xl mx-auto">
             <HelmetProvider>
-                <Navbar></Navbar>
+                {isLogin ? undefined : <Navbar></Navbar>}
                 <Outlet></Outlet>
-                <Footer></Footer>
+                {isLogin ? undefined : <Footer></Footer>}
             </HelmetProvider>
         </div>
     );
