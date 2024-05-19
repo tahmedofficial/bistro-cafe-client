@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndP
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from 'react';
 import auth from "../firebase/firebase.config";
+import Swal from "sweetalert2";
 
 
 export const AuthContext = createContext(null);
@@ -10,6 +11,16 @@ const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const sweetAlert = (title) => {
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: title,
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }
 
     const registerUser = (email, password) => {
         setLoading(true);
@@ -41,7 +52,8 @@ const AuthProvider = ({ children }) => {
         loading,
         registerUser,
         loginUser,
-        logOut
+        logOut,
+        sweetAlert,
     }
 
     return (
