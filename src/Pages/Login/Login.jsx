@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../Provider/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 
@@ -10,6 +10,10 @@ const Login = () => {
     // const chaptchaRef = useRef(null);
     const [disabled, setDisabled] = useState(true);
     const { loginUser, sweetAlert } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || "/";
+    console.log("login page",from);
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -26,6 +30,7 @@ const Login = () => {
                 const user = res.user;
                 console.log(user);
                 sweetAlert("login sucess")
+                navigate(from, { replace: true })
             })
     }
 

@@ -2,12 +2,14 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 
 const SignUp = () => {
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { registerUser } = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { registerUser, updateUser, sweetAlert } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
         console.log(data);
@@ -15,6 +17,16 @@ const SignUp = () => {
             .then(res => {
                 const user = res.user;
                 console.log(user);
+                updateUser(data.name, data.photoUrl)
+                    .then(() => {
+                        console.log("profile updated");
+                        reset();
+                        sweetAlert("successfully updater")
+                        navigate("/")
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             })
     }
 
@@ -37,6 +49,13 @@ const SignUp = () => {
                                 </label>
                                 <input type="text" {...register("name", { required: true })} name="name" placeholder="name" className="input input-bordered" />
                                 {errors.name && <span className="text-red-600">This field is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo Url</span>
+                                </label>
+                                <input type="text" {...register("photoUrl", { required: true })} placeholder="Photo Url" className="input input-bordered" />
+                                {errors.photoUrl && <span className="text-red-600">This field is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
