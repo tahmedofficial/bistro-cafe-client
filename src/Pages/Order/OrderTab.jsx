@@ -33,5 +33,5 @@ const OrderTab = ({ items }) => {
 export default OrderTab;
 
 OrderTab.propTypes = {
-    items: PropTypes.object
+    items: PropTypes.array
 }
