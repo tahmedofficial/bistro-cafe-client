@@ -3,6 +3,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { AuthContext } from '../../Provider/AuthProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import SocialLogin from '../../Components/SocialLogin/SocialLogin';
 
 
 const Login = () => {
@@ -13,7 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state?.from?.pathname || "/";
-    console.log("login page",from);
+    // console.log("login page", from);
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -36,7 +37,7 @@ const Login = () => {
 
     const handleValidateCaptcha = (e) => {
         const userCaptchaValue = e.target.value;
-        console.log(userCaptchaValue);
+        // console.log(userCaptchaValue);
         if (validateCaptcha(userCaptchaValue)) {
             setDisabled(false);
         }
@@ -83,10 +84,11 @@ const Login = () => {
                                 <button disabled={disabled} className="btn btn-primary">Login</button>
                             </div>
                         </form>
-                        <div>
+                        <div className='flex gap-1 px-6'>
                             <h3>New hear</h3>
                             <Link to="/signUp">Create an account</Link>
                         </div>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
