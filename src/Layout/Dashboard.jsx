@@ -4,15 +4,14 @@ import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
 
-    const isAdmin = useAdmin();
-    console.log("in dash", isAdmin[0]);
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="flex">
             <div className="w-64 min-h-screen bg-orange-400">
                 <ul className="menu p-4">
                     {
-                        isAdmin[0] ? <>
+                        isAdmin ? <>
                             <li>
                                 <NavLink to="/dashboard/adminHome">
                                     <FaHome></FaHome>
