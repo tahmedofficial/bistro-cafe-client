@@ -1,10 +1,12 @@
 import { FaAd, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin";
+import useCart from "../Hooks/useCart";
 
 const Dashboard = () => {
 
     const [isAdmin] = useAdmin();
+    const [cart] = useCart();
 
     return (
         <div className="flex">
@@ -45,14 +47,14 @@ const Dashboard = () => {
                                         User Home</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/reservation">
+                                    <NavLink to="/dashboard/history">
                                         <FaCalendar></FaCalendar>
-                                        Reservation</NavLink>
+                                        Not History</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/cart">
                                         <FaShoppingCart></FaShoppingCart>
-                                        My cart</NavLink>
+                                        My cart ({cart.length})</NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/review">
@@ -60,9 +62,9 @@ const Dashboard = () => {
                                         Review</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/bookings">
+                                    <NavLink to="/dashboard/paymentHistory">
                                         <FaList></FaList>
-                                        Bookings</NavLink>
+                                        Payment Real History</NavLink>
                                 </li>
                             </>
                     }
