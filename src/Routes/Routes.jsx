@@ -16,6 +16,8 @@ import ManageItems from "../Pages/Dashboard/ManageItems/ManageItems";
 import UpdateItem from "../Pages/Dashboard/UpdateItem/UpdateItem";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import UserHome from "../Pages/Dashboard/UserHome/UserHome";
+import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
 
 
 const router = createBrowserRouter([
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             {
+                path: "userHome",
+                element: <UserHome></UserHome>
+            },
+            {
                 path: "cart",
                 element: <Cart></Cart>
             },
@@ -68,6 +74,10 @@ const router = createBrowserRouter([
 
             // Admin Routes
             {
+                path: "adminHome",
+                element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+            },
+            {
                 path: "addItems",
                 element: <AdminRoute><AddItems></AddItems></AdminRoute>
             },
@@ -78,7 +88,7 @@ const router = createBrowserRouter([
             {
                 path: "updateItem/:id",
                 element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
+                loader: ({ params }) => fetch(`https://bistro-cafe-server.vercel.app/menu/${params.id}`)
             },
             {
                 path: "users",

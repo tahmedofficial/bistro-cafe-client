@@ -1,5 +1,5 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import PropTypes from "prop-types";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext, useEffect, useState } from 'react';
 import auth from "../firebase/firebase.config";
 import Swal from "sweetalert2";
@@ -59,14 +59,15 @@ const AuthProvider = ({ children }) => {
                     .then(res => {
                         if (res.data.token) {
                             localStorage.setItem("access-token", res.data.token);
+                            setLoading(false);
                         }
                     })
             }
             else {
                 localStorage.removeItem("access-token");
+                setLoading(false);
             }
 
-            setLoading(false);
         })
         return () => {
             return unsubscribe();
